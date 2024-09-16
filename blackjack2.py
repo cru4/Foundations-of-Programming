@@ -1,19 +1,19 @@
-import random
+import random    
+import unicodedata
 
 # Define card values
 def card_value(card):
-    rank = card[:-1]
-    if rank in ['J', 'Q', 'K']:
+    if card in ['J', 'Q', 'K']:
         return 10
-    elif rank == 'A':
+    elif card == 'A':
         return 11  # Initially treat Ace as 11
     else:
-        return int(rank)
+        return int(card)
 
 # Adjust Ace value if necessary
 def adjust_for_ace(hand):
     total = sum([card_value(card) for card in hand])
-    if total > 21 and any(card.startswith('A') for card in hand):
+    if total > 21 and 'A' in hand:
         total -= 10  # Change Ace value from 11 to 1
     return total
 
@@ -27,38 +27,13 @@ def calculate_hand_value(hand):
 
 # Create and shuffle the deck
 def create_deck():
-    suits = ['♥', '♦', '♣', '♠']
-    ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-    deck = [f'{rank}{suit}' for suit in suits for rank in ranks]
+    deck = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] * 4
     random.shuffle(deck)
     return deck
 
-# Display the card in ASCII style
-def display_card(card):
-    rank = card[:-1]
-    suit = card[-1]
-    
-    # Adjust the rank for correct width
-    if len(rank) == 1:
-        rank_display_top = f'{rank}      '
-        rank_display_bottom = f'      {rank}'
-    else:
-        rank_display_top = f'{rank}     '
-        rank_display_bottom = f'     {rank}'
-    
-    print(f"┌─────────┐")
-    print(f"│{rank_display_top}│")
-    print(f"│         │")
-    print(f"│    {suit}    │")
-    print(f"│         │")
-    print(f"│{rank_display_bottom}│")
-    print(f"└─────────┘")
-
-# Display the hand of cards
+# Display hand
 def display_hand(hand, owner="Player"):
-    print(f"{owner}'s hand:")
-    for card in hand:
-        display_card(card)
+    print(f"{owner}'s hand: {', '.join(hand)}")
 
 # Player's turn
 def player_turn(deck, player_hand):
@@ -124,8 +99,7 @@ def play_blackjack():
     
     # Show player's hand and dealer's visible card
     display_hand(player_hand, "Player")
-    print(f"\nDealer's visible card:")
-    display_card(dealer_hand[0])
+    print(f"Dealer's visible card: {dealer_hand[0]}")
     
     # Player's turn
     if player_turn(deck, player_hand):
@@ -136,3 +110,14 @@ def play_blackjack():
 
 # Play the game
 play_blackjack()
+
+def play_again():
+    while True:
+        play_blackjack()
+        play_again = input("Play again? ('Yes' or 'no') ").lower()
+        if play_again != 'yes':
+            print("Thanks for playing!")
+            break
+    
+play_again()
+
