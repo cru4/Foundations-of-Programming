@@ -3,12 +3,13 @@ import unicodedata
 
 # Define card values
 def card_value(card):
-    if card in ['J', 'Q', 'K']:
+    rank = card[:-1]
+    if rank in ['J', 'Q', 'K']:
         return 10
-    elif card == 'A':
+    elif rank == 'A':
         return 11  # Initially treat Ace as 11
     else:
-        return int(card)
+        return int(rank)
 
 # Adjust Ace value if necessary
 def adjust_for_ace(hand):
@@ -27,7 +28,9 @@ def calculate_hand_value(hand):
 
 # Create and shuffle the deck
 def create_deck():
-    deck = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] * 4
+    suits = ['♥', '♦', '♣', '♠']
+    ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] * 4
+    deck = [f'{rank}{suit}' for suit in suits for rank in ranks]
     random.shuffle(deck)
     return deck
 
@@ -111,13 +114,14 @@ def play_blackjack():
 # Play the game
 play_blackjack()
 
+# Continuing/ending game
 def play_again():
     while True:
-        play_blackjack()
         play_again = input("Play again? ('Yes' or 'no') ").lower()
         if play_again != 'yes':
             print("Thanks for playing!")
             break
+        play_blackjack()
     
 play_again()
 
