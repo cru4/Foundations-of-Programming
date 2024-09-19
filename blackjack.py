@@ -1,9 +1,9 @@
-import random    
-import unicodedata
+import random   #Random numbers for dealing 
+import unicodedata #For suits 
 
 # Define card values
 def card_value(card):
-    rank = card[:-1]
+    rank = card[:-1] #Allow hand values to be calculated since the suit was getting in the way of that function
     if rank in ['J', 'Q', 'K']:
         return 10
     elif rank == 'A':
@@ -14,9 +14,15 @@ def card_value(card):
 # Adjust Ace value if necessary
 def adjust_for_ace(hand):
     total = sum([card_value(card) for card in hand])
-    if total > 21 and 'A' in hand:
-        total -= 10  # Change Ace value from 11 to 1
+    ace_count = sum(1 for card in hand if card.startswith('A'))  # Count the number of Aces
+
+    # Adjust Ace value from 11 to 1 as long as total is over 21 and there are Aces to adjust
+    while total > 21 and ace_count:
+        total -= 10
+        ace_count -= 1  # Reduce the number of Aces that can be adjusted
+
     return total
+
 
 # Deal a card
 def deal_card(deck):
@@ -29,7 +35,7 @@ def calculate_hand_value(hand):
 # Create and shuffle the deck
 def create_deck():
     suits = ['♥', '♦', '♣', '♠']
-    ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] * 4
+    ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
     deck = [f'{rank}{suit}' for suit in suits for rank in ranks]
     random.shuffle(deck)
     return deck
@@ -97,7 +103,7 @@ def play_blackjack():
     deck = create_deck()
     
     # Deal initial cards
-    player_hand = [deal_card(deck), deal_card(deck)]
+    player_hand = [deal_card(deck), deal_card(deck)] #potentially make set if something wrong
     dealer_hand = [deal_card(deck), deal_card(deck)]
     
     # Show player's hand and dealer's visible card
@@ -123,5 +129,4 @@ def play_again():
             break
         play_blackjack()
     
-play_again()
-
+play_again() 
