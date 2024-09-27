@@ -1,11 +1,11 @@
 import unittest
 from unittest import mock
 from unittest import TestCase
-from midterm import *
+from midterm import *  # Ensure this imports your game logic correctly
 
 class CreateTests(TestCase):
+   
     def setUp(self):
-        # Set up a deck and hands for testing
         self.deck = create_deck()  # Create a fresh deck for each test
         random.shuffle(self.deck)
         self.player_hand = []
@@ -17,7 +17,7 @@ class CreateTests(TestCase):
         self.assertEqual(card_value('J♦'), 10)
         self.assertEqual(card_value('A♠'), 11)
         self.assertEqual(card_value('10♣'), 10)
-        
+
     # Test for Ace adjustment when hand is over 21
     def test_adjust_for_ace(self):
         hand = ['A♠', '9♦', 'A♣']  # Two Aces and a 9
@@ -84,5 +84,3 @@ class CreateTests(TestCase):
         self.assertEqual(len(deck), 52)
         self.assertEqual(len(set(deck)), 52)  # Ensure all cards are unique
 
-if __name__ == '__main__':
-    unittest.main()

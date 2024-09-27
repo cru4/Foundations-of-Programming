@@ -133,5 +133,3 @@ def play_again():
         play_blackjack()
     
 play_again() 
-
-#Since checkpoints ensured ace adjustment worked for multiple aces in hand, made so auto becomes dealers turn if player hand is 21
