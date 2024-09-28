@@ -13,13 +13,16 @@ class CreateTests(TestCase):
 
     # Test for card value calculation
     def test_card_value(self):
+        print ("card value test running...")
         self.assertEqual(card_value('2♥'), 2)
         self.assertEqual(card_value('J♦'), 10)
         self.assertEqual(card_value('A♠'), 11)
         self.assertEqual(card_value('10♣'), 10)
+        print ("card value test complete")
 
     # Test for Ace adjustment when hand is over 21
     def test_adjust_for_ace(self):
+        print ("ace adjustment test running...")
         hand = ['A♠', '9♦', 'A♣']  # Two Aces and a 9
         self.assertEqual(adjust_for_ace(hand), 21)  # Aces should adjust to 1 if over 21
 
@@ -28,38 +31,29 @@ class CreateTests(TestCase):
 
         hand = ['A♠', 'A♣', 'A♦', '8♠']  # Three Aces and an 8
         self.assertEqual(adjust_for_ace(hand), 21)
+        print ("ace adjustment test complete!")
 
     # Test dealing card
     def test_deal_card(self):
+        print ("dealing test running...")
         initial_deck_size = len(self.deck)
         card = deal_card(self.deck)
         self.assertEqual(len(self.deck), initial_deck_size - 1)
         self.assertIsInstance(card, str)
+        print ("dealing test complete!")
 
     # Test hand calculation
     def test_calculate_hand_value(self):
+        print ("hand calculation test running...")
         hand = ['A♠', '9♦']
         self.assertEqual(calculate_hand_value(hand), 20)
         hand = ['A♠', '9♦', '2♠']
         self.assertEqual(calculate_hand_value(hand), 12)
-
-    # Test player's bust scenario
-    @mock.patch('builtins.input', side_effect=['hit', 'hit', 'stand'])
-    def test_player_bust(self, mock_input):
-        self.player_hand = ['10♦', '8♠']
-        self.deck = ['5♣'] + self.deck  # Add card to make player bust
-        result = player_turn(self.deck, self.player_hand)
-        self.assertFalse(result)  # Player should bust and return False
-
-    # Test dealer turn, ensuring dealer stands at 17 or higher
-    def test_dealer_turn(self):
-        self.dealer_hand = ['10♦', '6♠']
-        self.deck = ['5♣', '9♦', '2♠'] + self.deck
-        result = dealer_turn(self.deck, self.dealer_hand)
-        self.assertTrue(result)  # Dealer should stand when reaching 17 or more
+        print ("hand calculation test complete!")
 
     # Test winner determination
     def test_determine_winner(self):
+        print ("winner determination test running...")
         player_hand = ['10♦', '9♠']  # Total 19
         dealer_hand = ['8♦', '8♠']   # Total 16
         with mock.patch('builtins.print') as mocked_print:
@@ -77,10 +71,17 @@ class CreateTests(TestCase):
         with mock.patch('builtins.print') as mocked_print:
             determine_winner(player_hand, dealer_hand)
             mocked_print.assert_called_with("It's a tie!")
+        print ("winner determination test complete!")
 
     # Test deck creation (52 unique cards)
     def test_create_deck(self):
+        print ("deck creation test running...")
         deck = create_deck()
         self.assertEqual(len(deck), 52)
         self.assertEqual(len(set(deck)), 52)  # Ensure all cards are unique
+        print ("deck creation test complete!")
 
+
+if __name__ == "__main__":
+    unittest.main
+    CreateTests

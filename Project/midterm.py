@@ -121,7 +121,8 @@ def play_blackjack():
             determine_winner(player_hand, dealer_hand)
 
 # Play the game
-play_blackjack()
+if __name__ == "__main__":
+    play_blackjack()
 
 # Continuing/ending game
 def play_again():
@@ -131,5 +132,6 @@ def play_again():
             print("Thanks for playing!")
             break
         play_blackjack()
-    
-play_again() 
+
+if __name__ == "__main__":
+    play_again
