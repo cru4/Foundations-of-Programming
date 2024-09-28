@@ -133,5 +133,4 @@ def play_again():
             break
         play_blackjack()
 
-if __name__ == "__main__":
-    play_again
+play_again
