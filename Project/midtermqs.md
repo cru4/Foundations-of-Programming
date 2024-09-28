@@ -1,5 +1,5 @@
 # How long (cumulative) have you spent on the code?
-I have tentatively spent somewhere between 10-12 hours, but I’m not exactly sure as I’ll work on things for a few minutes here and there outside of sessions where I’m making/implementing more major/time-consuming changes.
+I have tentatively spent somewhere between 15-18 hours, but I’m not exactly sure as I’ll work on things for a few minutes here and there outside of sessions where I’m making/implementing more major/time-consuming changes.
 
 # What was the most time-consuming part?
 The most time-consuming part remains the same as the checkpoints. Implementing certain changes and having to go back through the code and troubleshoot to figure out what is causing the new code to fail.
